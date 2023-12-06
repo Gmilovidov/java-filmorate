@@ -48,7 +48,7 @@ class FilmorateApplicationTests {
 		film = new Film("name", "descriptttdescriptttdescriptttdescriptttdescriptttdes" +
 				"criptttdescriptttdescriptttdescriptttdescriptttdescriptttdescriptttdescr" +
 				"iptttdescriptttdescriptttdescriptttdescriptttdescriptttdescripttt" +
-				"descriptttdescripttt", LocalDate.now().minusDays(1),100 );
+				"descriptttdescripttt", LocalDate.now().minusDays(1),100);
 		valid = filmValidator.checkLength(film);
 		Assertions.assertTrue(valid, "не прошла проверка на длину описания фильма");
 	}

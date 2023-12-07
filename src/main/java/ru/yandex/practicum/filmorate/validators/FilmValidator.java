@@ -24,4 +24,5 @@ public class FilmValidator {
     public boolean checkDuration(Film film) {
         return film.getDuration() < 0;
     }
+
 }

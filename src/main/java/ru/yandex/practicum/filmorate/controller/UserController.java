@@ -26,22 +26,9 @@ public class UserController {
         if (userValidator.checkNameUser(user)) {
             user.setName(user.getLogin());
         }
-        try {
-            if (userValidator.checkMail(user)) {
-                throw new ValidationException("электронная почта не может быть пустой и должна содержать символ @");
-            }
-            if (userValidator.checkLogin(user)) {
-                throw new ValidationException("логин не может быть пустым и содержать пробелы");
-            }
-            if (userValidator.checkBirthday(user)) {
-                throw new ValidationException("дата рождения не может быть в будущем");
-            }
+            checkerValidUser(user);
             user.setId(generateIdUser());
             users.add(user);
-        } catch (ValidationException exception) {
-            log.info(exception.getMessage());
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
-        }
         return user;
     }
 
@@ -59,15 +46,7 @@ public class UserController {
                     throw new ValidationException("пользователь не найден");
                 }
             }
-            if (userValidator.checkMail(user)) {
-                throw new ValidationException("электронная почта не может быть пустой и должна содержать символ @");
-            }
-            if (userValidator.checkLogin(user)) {
-                throw new ValidationException("логин не может быть пустым и содержать пробелы");
-            }
-            if (userValidator.checkBirthday(user)) {
-                throw new ValidationException("дата рождения не может быть в будущем");
-            }
+            checkerValidUser(user);
             users.removeIf(u -> u.getId() == user.getId());
             users.add(user);
         } catch (ValidationException exception) {
@@ -81,6 +60,23 @@ public class UserController {
     public List<User> getUsers() {
         log.info("получен запрос на пользователей");
         return users;
+    }
+
+    public void checkerValidUser(User user) {
+        try {
+            if (userValidator.checkMail(user)) {
+                throw new ValidationException("электронная почта не может быть пустой и должна содержать символ @");
+            }
+            if (userValidator.checkLogin(user)) {
+                throw new ValidationException("логин не может быть пустым и содержать пробелы");
+            }
+            if (userValidator.checkBirthday(user)) {
+                throw new ValidationException("дата рождения не может быть в будущем");
+            }
+        } catch (ValidationException exception) {
+            log.info(exception.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exception.getMessage());
+        }
     }
 
     public int generateIdUser() {

@@ -62,7 +62,7 @@ public class UserController {
         return users;
     }
 
-    public void checkerValidUser(User user) {
+    private void checkerValidUser(User user) {
         try {
             if (userValidator.checkMail(user)) {
                 throw new ValidationException("электронная почта не может быть пустой и должна содержать символ @");
@@ -79,7 +79,7 @@ public class UserController {
         }
     }
 
-    public int generateIdUser() {
+    private int generateIdUser() {
         return ++count;
     }
 }

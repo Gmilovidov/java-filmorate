@@ -56,7 +56,7 @@ public class FilmController {
         return films;
     }
 
-    public void checkerValidFilm(Film film) {
+    private void checkerValidFilm(Film film) {
         try {
             if (filmValidator.checkName(film)) {
                 throw new ValidationException("Название не может быть пустым");
@@ -76,7 +76,7 @@ public class FilmController {
         }
     }
 
-    public int generateIdFilm() {
+    private int generateIdFilm() {
         return ++count;
     }
 }

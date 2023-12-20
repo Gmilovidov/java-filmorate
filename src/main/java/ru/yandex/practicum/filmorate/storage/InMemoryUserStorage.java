@@ -32,7 +32,7 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public User getUserById(Long id) {
-        Optional <User> optionalUser = users.stream()
+        Optional<User> optionalUser = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
         if (optionalUser.isPresent()) {
@@ -44,13 +44,13 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public void addFriend(Long id, Long friendId) {
-        Optional <User> optionalUser = users.stream()
+        Optional<User> optionalUser = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
-        Optional <User> optionalFriend = users.stream()
+        Optional<User> optionalFriend = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
-        if (optionalUser.isEmpty() || optionalFriend.isEmpty() || id <=0 || friendId <=0) {
+        if (optionalUser.isEmpty() || optionalFriend.isEmpty() || id <= 0 || friendId <= 0) {
             throw new UserNotFoundException("Пользователь не найден");
         } else {
             getUserById(id).setFriendUser(friendId);
@@ -60,10 +60,10 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public void deleteFriendById(Long id, Long friendId) {
-        Optional <User> optionalUser = users.stream()
+        Optional<User> optionalUser = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
-        Optional <User> optionalFriend = users.stream()
+        Optional<User> optionalFriend = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
         if (optionalUser.isEmpty() || optionalFriend.isEmpty()) {
@@ -75,7 +75,7 @@ public class InMemoryUserStorage implements UserStorage {
 
     @Override
     public List<User> getAllFriends(Long id) {
-        Optional <User> optionalUser = users.stream()
+        Optional<User> optionalUser = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
         if (optionalUser.isEmpty() || id <= 0) {
@@ -83,7 +83,7 @@ public class InMemoryUserStorage implements UserStorage {
         } else {
             User us = optionalUser.get();
             return users.stream()
-                    .filter(user ->us.getFriends().contains(user.getId()))
+                    .filter(user -> us.getFriends().contains(user.getId()))
                     .collect(Collectors.toList());
         }
     }

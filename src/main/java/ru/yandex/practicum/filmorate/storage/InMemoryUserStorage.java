@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.storage;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,10 +14,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class InMemoryUserStorage implements UserStorage {
 
     private final List<User> users = new ArrayList<>();
-    private Long generatedId = 0L;
+    private  Long generatedId = 0L;
 
     @Override
     public User createUser(User user) {

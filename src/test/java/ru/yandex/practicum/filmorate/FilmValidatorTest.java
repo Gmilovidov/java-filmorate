@@ -8,6 +8,7 @@ import ru.yandex.practicum.filmorate.model.Film;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootTest
@@ -21,6 +22,7 @@ public class FilmValidatorTest {
     @BeforeEach
     void beforeEach() {
         filmValidator = new FilmValidator();
+        likesTest = new HashSet<>(1);
     }
 
     @Test
@@ -63,4 +65,5 @@ public class FilmValidatorTest {
         valid = filmValidator.checkDuration(film);
         Assertions.assertTrue(valid, "не проходит проверку на длительность");
     }
+
 }

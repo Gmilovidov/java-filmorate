@@ -1,5 +1,6 @@
 package ru.yandex.practicum.filmorate.storage;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -17,11 +18,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class InMemoryFilmStorage implements FilmStorage {
 
     private final List<Film> films = new ArrayList<>();
-    private Long generatedId = 0L;
-    private UserStorage userStorage;
+    private final UserStorage userStorage;
+    private  Long generatedId = 0L;
 
     @Override
     public Film createFilm(Film film) {

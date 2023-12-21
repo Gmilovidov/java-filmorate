@@ -19,7 +19,7 @@ public class User {
     private LocalDate birthday;
     private Set<Long> friends = new HashSet<>();
 
-    public User(String email, String login, String name, LocalDate birthday) {
+    public User(String email, String login, String name, LocalDate birthday, Set<User> friends) {
         this.id = 0L;
         this.email = email;
         this.login = login;

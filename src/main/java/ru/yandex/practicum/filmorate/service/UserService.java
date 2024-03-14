@@ -9,17 +9,17 @@ public interface UserService {
 
     User createUser(User user);
 
-    User updateUser(User user);
+//    User updateUser(User user);
+//
+//    List<User> getAllUsers();
 
-    List<User> getAllUsers();
-
-    User getUserById(Long id);
-
-    void addFriend(Long id, Long friendId);
-
-    void deleteFriendById(Long id, Long friendId);
-
-    List<User> getAllFriends(Long id);
-
-    List<User> getFriendsCommon(Long id, Long otherId) throws ValidationException;
+    User getUserById(Integer id);
+//
+//    void addFriend(Integer id, Integer friendId);
+//
+//    void deleteFriendById(Integer id, Integer friendId);
+//
+//    List<User> getAllFriends(Integer id);
+//
+//    List<User> getFriendsCommon(Integer id, Integer otherId) throws ValidationException;
 }

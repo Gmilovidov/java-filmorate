@@ -1,24 +1,27 @@
 package ru.yandex.practicum.filmorate.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.Film;
-import ru.yandex.practicum.filmorate.dao.FilmStorage;
+import ru.yandex.practicum.filmorate.storage.FilmStorage;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 
 import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class FilmServiceImpl implements FilmService {
 
     private final FilmStorage filmStorage;
     private final FilmValidator filmValidator = new FilmValidator();
+
+    public FilmServiceImpl(@Qualifier("filmDbStorage") FilmStorage filmStorage) {
+        this.filmStorage = filmStorage;
+    }
 
     @Override
     public Film createFilm(Film film) {

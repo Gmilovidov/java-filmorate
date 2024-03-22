@@ -2,7 +2,6 @@ package ru.yandex.practicum.filmorate.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
@@ -18,52 +17,51 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/users")
-    public ResponseEntity<User> create(@RequestBody @Valid  User newUser) {
+    public User create(@RequestBody @Valid  User newUser) {
         log.info("получен запрос на создание пользователя");
-        User savedUser = userService.createUser(newUser);
-       return ResponseEntity.ok(savedUser);
+       return userService.createUser(newUser);
     }
-//
-//    @PutMapping("/users")
-//    public User update(@RequestBody @Valid  User user) {
-//        log.info("получен запрос на обновление пользователя");
-//        return userService.updateUser(user);
-//    }
 
-//    @GetMapping("/users")
-//    public List<User> getUsers() {
-//        log.info("получен запрос на пользователей");
-//        return userService.getAllUsers();
-//    }
+    @PutMapping("/users")
+    public User update(@RequestBody @Valid  User user) {
+        log.info("получен запрос на обновление пользователя");
+        userService.updateUser(user);
+        return user;
+    }
+
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        log.info("получен запрос на пользователей");
+        return userService.getAllUsers();
+    }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUsersById(@PathVariable int id) {
+    public User getUsersById(@PathVariable Long id) {
         log.info("получен запрос на получение пользователя по id");
-        User user = userService.getUserById(id);
-        return ResponseEntity.ok(user);
+        return userService.getUserById(id);
     }
 
-//    @PutMapping("/users/{id}/friends/{friendId}")
-//    public void addFriends(@PathVariable Long id, @PathVariable Long friendId) {
-//        log.info("Получен запрос на добавление в друзья");
-//        userService.addFriend(id, friendId);
-//    }
-//
-//    @DeleteMapping("/users/{id}/friends/{friendId}")
-//    public void deleteFriendsById(@PathVariable Long id, @PathVariable Long friendId) {
-//        log.info("получен запрос на удаление из друзей по id");
-//        userService.deleteFriendById(id, friendId);
-//    }
-//
-//    @GetMapping("/users/{id}/friends")
-//    public List<User> getAllFriendsById(@PathVariable Long id) {
-//        log.info("получен запрос на получение списка друзей");
-//        return userService.getAllFriends(id);
-//    }
-//
-//    @GetMapping("/users/{id}/friends/common/{otherId}")
-//    public List<User> getFriendsCommonOtherId(@PathVariable Long id, @PathVariable Long otherId) throws ValidationException {
-//        log.info("получен запрос на получение списка друзей, общих с другим пользователем");
-//        return userService.getFriendsCommon(id, otherId);
-//    }
+    @PutMapping("/users/{id}/friends/{friendId}")
+    public User addFriends(@PathVariable Long id, @PathVariable Long friendId) {
+        log.info("Получен запрос на добавление в друзья");
+        return userService.addFriend(id, friendId);
+    }
+
+    @DeleteMapping("/users/{id}/friends/{friendId}")
+    public void deleteFriendsById(@PathVariable Long id, @PathVariable Long friendId) {
+        log.info("получен запрос на удаление из друзей по id");
+        userService.deleteFriendById(id, friendId);
+    }
+
+    @GetMapping("/users/{id}/friends")
+    public List<User> getAllFriendsById(@PathVariable Long id) {
+        log.info("получен запрос на получение списка друзей");
+        return userService.getAllFriends(id);
+    }
+
+    @GetMapping("/users/{id}/friends/common/{otherId}")
+    public List<User> getFriendsCommonOtherId(@PathVariable Long id, @PathVariable Long otherId) throws ValidationException {
+        log.info("получен запрос на получение списка друзей, общих с другим пользователем");
+        return userService.getFriendsCommon(id, otherId);
+    }
 }

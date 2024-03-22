@@ -1,4 +1,4 @@
-package ru.yandex.practicum.filmorate.dao;
+package ru.yandex.practicum.filmorate.storage;
 
 import ru.yandex.practicum.filmorate.model.Film;
 
@@ -19,4 +19,5 @@ public interface FilmStorage {
     void deleteLike(Long id, Long userId);
 
     List<Film> getPopularFilmsList(Long count);
+
 }

@@ -1,14 +1,15 @@
 package ru.yandex.practicum.filmorate.model;
 
-import lombok.Data;
-import lombok.NonNull;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Data
+@Builder
 public class Film {
     private Long id;
     @NonNull
@@ -19,20 +20,22 @@ public class Film {
     private LocalDate releaseDate;
     @NonNull
     private int duration;
-    private  Set<Long> likes = new HashSet<>();
-    private String mpa;
-    private List<String> genres;
+    private Mpa mpa;
+    private final Set<Long> likes = new HashSet<>();
+    private final TreeSet<Genre> genres = new TreeSet<>();
 
-
-    public Film(String name, String description, LocalDate releaseDate, int duration, Set<Long> likes) {
-        this.id = 0L;
-        this.name = name;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.duration = duration;
+    public void setLikeFilm(Long userId) {
+        likes.add(userId);
     }
 
-    public void setLikeFilm(Long setUserId) {
-        likes.add(setUserId);
+    public Map<String, Object> filmToMap(Film film) {
+        return Map.of(
+                "name", film.getName(),
+                "description", film.getDescription(),
+                "release_date", film.getReleaseDate(),
+                "duration", film.getDuration(),
+                "id_mpa", mpa.getId()
+        );
     }
 }
+

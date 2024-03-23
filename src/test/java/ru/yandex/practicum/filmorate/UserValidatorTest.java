@@ -8,8 +8,6 @@ import ru.yandex.practicum.filmorate.model.User;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootTest
 public class UserValidatorTest {
@@ -21,7 +19,6 @@ public class UserValidatorTest {
     @BeforeEach
     void beforeEach() {
         userValidator = new UserValidator();
-        Set<User> friendsTest = new HashSet<>(1);
     }
 
     @Test

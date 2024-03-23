@@ -23,7 +23,6 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 public class GenreDbStorageTest {
     private final JdbcTemplate jdbcTemplate;
     private GenreDbStorage genreDbStorage;
-    private final Genre genre = new Genre(1L, "Комедия");
     private final List<Genre> genreListTest = List.of(
             new Genre(1L, "Комедия"),
             new Genre(2L, "Драма"),

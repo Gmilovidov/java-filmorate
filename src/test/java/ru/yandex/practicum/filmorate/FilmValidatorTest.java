@@ -9,8 +9,6 @@ import ru.yandex.practicum.filmorate.model.Mpa;
 import ru.yandex.practicum.filmorate.validators.FilmValidator;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootTest
 public class FilmValidatorTest {
@@ -22,7 +20,6 @@ public class FilmValidatorTest {
     @BeforeEach
     void beforeEach() {
         filmValidator = new FilmValidator();
-        Set<Long> likesTest = new HashSet<>(1);
     }
 
     @Test

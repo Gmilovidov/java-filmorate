@@ -13,7 +13,6 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class FilmController {
-
     private final FilmService filmService;
 
     @PostMapping("/films")
@@ -30,6 +29,7 @@ public class FilmController {
 
     @GetMapping("/films")
     public List<Film> getFilms() {
+        log.info("Получен запрос на возврат всех фильмов");
         return filmService.getAllFilms();
     }
 

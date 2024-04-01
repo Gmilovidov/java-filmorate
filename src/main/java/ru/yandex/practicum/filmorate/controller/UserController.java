@@ -14,19 +14,19 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-
     private final UserService userService;
 
     @PostMapping("/users")
-    public User create(@RequestBody @Valid  User user) {
+    public User create(@RequestBody @Valid  User newUser) {
         log.info("получен запрос на создание пользователя");
-       return userService.createUser(user);
+       return userService.createUser(newUser);
     }
 
     @PutMapping("/users")
     public User update(@RequestBody @Valid  User user) {
         log.info("получен запрос на обновление пользователя");
-        return userService.updateUser(user);
+        userService.updateUser(user);
+        return user;
     }
 
     @GetMapping("/users")
@@ -42,9 +42,9 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}/friends/{friendId}")
-    public void addFriends(@PathVariable Long id, @PathVariable Long friendId) {
+    public User addFriends(@PathVariable Long id, @PathVariable Long friendId) {
         log.info("Получен запрос на добавление в друзья");
-        userService.addFriend(id, friendId);
+        return userService.addFriend(id, friendId);
     }
 
     @DeleteMapping("/users/{id}/friends/{friendId}")

@@ -1,6 +1,7 @@
 package ru.yandex.practicum.filmorate.storage;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Component
+@Qualifier("inMemoryUserStorage")
 @RequiredArgsConstructor
 public class InMemoryUserStorage implements UserStorage {
 
@@ -45,7 +47,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public void addFriend(Long id, Long friendId) {
+    public User addFriend(Long id, Long friendId) {
         Optional<User> optionalUser = users.stream()
                 .filter(user -> Objects.equals(user.getId(), id))
                 .findFirst();
@@ -58,6 +60,7 @@ public class InMemoryUserStorage implements UserStorage {
             getUserById(id).setFriendUser(friendId);
             getUserById(friendId).setFriendUser(id);
         }
+        return getUserById(id);
     }
 
     @Override
@@ -103,7 +106,7 @@ public class InMemoryUserStorage implements UserStorage {
     }
 
     @Override
-    public User updateUser(User user) {
+    public void updateUser(User user) {
         try {
             for (User u : users) {
                 if (Objects.equals(u.getId(), user.getId())) {
@@ -118,7 +121,6 @@ public class InMemoryUserStorage implements UserStorage {
             log.info(exception.getMessage());
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, exception.getMessage());
         }
-        return user;
     }
 
     private Long generateIdUser() {

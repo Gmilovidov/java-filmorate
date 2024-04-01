@@ -1,24 +1,27 @@
 package ru.yandex.practicum.filmorate.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.exception.ValidationException;
 import ru.yandex.practicum.filmorate.model.User;
-import ru.yandex.practicum.filmorate.storage.UserStorage;
 import ru.yandex.practicum.filmorate.validators.UserValidator;
 
 import java.util.List;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserStorage userStorage;
     private final UserValidator userValidator = new UserValidator();
+
+    public UserServiceImpl(@Qualifier("userDbStorage") UserStorage userStorage) {
+        this.userStorage = userStorage;
+    }
 
     @Override
     public User createUser(User user) {
@@ -30,12 +33,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(User user) {
+    public void updateUser(User user) {
         if (userValidator.checkNameUser(user)) {
             user.setName(user.getLogin());
         }
         checkerValidUser(user);
-        return userStorage.updateUser(user);
+        userStorage.updateUser(user);
     }
 
     @Override
@@ -49,8 +52,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addFriend(Long id, Long friendId) {
-        userStorage.addFriend(id, friendId);
+    public User addFriend(Long id, Long friendId) {
+        return userStorage.addFriend(id, friendId);
     }
 
     @Override
